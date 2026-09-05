@@ -40,6 +40,7 @@ void pr_ignore(void *handle, int ignore) { windowFor(handle).ignoresMouseEvents 
 int pr_ignoring(void *handle) { return windowFor(handle).ignoresMouseEvents; }
 double pr_backing_scale(void *handle) { return windowFor(handle).backingScaleFactor; }
 int pr_is_opaque(void *handle) { return windowFor(handle).opaque; }
+int pr_is_accessory(void) { return NSApp.activationPolicy == NSApplicationActivationPolicyAccessory; }
 void pr_show_existing(void) { [NSDistributedNotificationCenter.defaultCenter postNotificationName:@"org.pixelrick.show" object:nil userInfo:nil deliverImmediately:YES]; }
 int pr_take_show_requested(void) { BOOL requested = showRequested; showRequested = NO; return requested; }
 void pr_show(void *handle) { [windowFor(handle) orderFrontRegardless]; }

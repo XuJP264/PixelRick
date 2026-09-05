@@ -12,6 +12,7 @@ internal static class MacNative
     [DllImport(Lib)] internal static extern void pr_ignore(IntPtr handle, int ignore);
     [DllImport(Lib)] internal static extern int pr_ignoring(IntPtr handle);
     [DllImport(Lib)] internal static extern int pr_is_opaque(IntPtr handle);
+    [DllImport(Lib)] internal static extern int pr_is_accessory();
     [DllImport(Lib)] internal static extern double pr_backing_scale(IntPtr handle);
     [DllImport(Lib)] internal static extern void pr_show_existing();
     [DllImport(Lib)] internal static extern int pr_take_show_requested();

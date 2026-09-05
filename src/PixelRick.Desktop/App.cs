@@ -12,7 +12,10 @@ public sealed class App : Application
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop) {
             desktop.ShutdownMode = ShutdownMode.OnExplicitShutdown;
             string folder = ConfigurationStore.DefaultFolder;
-            if (desktop.Args?.Contains("--self-test") == true) folder = Path.Combine(Path.GetTempPath(), "PixelRick-mac-test-" + Environment.ProcessId);
+            if (desktop.Args?.Contains("--self-test") == true) {
+                int configArgument = Array.IndexOf(desktop.Args, "--test-config-dir");
+                folder = configArgument >= 0 ? Path.GetFullPath(desktop.Args[configArgument + 1]) : Path.Combine(Path.GetTempPath(), "PixelRick-mac-test-" + Environment.ProcessId);
+            }
             Directory.CreateDirectory(folder);
             try { instance = new FileStream(Path.Combine(folder, "instance.lock"), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None); }
             catch (IOException) { if (OperatingSystem.IsMacOS()) MacNative.pr_show_existing(); desktop.Shutdown(); return; }

@@ -1,6 +1,6 @@
 """Run the installed .app from a mounted DMG, require UI evidence and normal exits."""
 import argparse,json,pathlib,plistlib,subprocess,shutil,os,hashlib
-from PIL import Image
+from PIL import Image, ImageChops
 ROOT=pathlib.Path(__file__).resolve().parents[2]
 def main():
     p=argparse.ArgumentParser();p.add_argument('--arch',required=True);args=p.parse_args()
@@ -37,7 +37,8 @@ def main():
     frames[0].save(review/'macos-behavior-demo.gif',save_all=True,append_images=frames[1:],duration=200,loop=0)
     with Image.open(review/'macos-1x.png') as a, Image.open(review/'macos-2x.png') as b:
         assert b.size==(a.width*2,a.height*2)
-        assert a.getbbox() and b.getbbox()
+        assert a.getchannel('A').getbbox() and b.getchannel('A').getbbox()
+        assert ImageChops.difference(a.resize(b.size,Image.Resampling.NEAREST),b).convert('RGB').getbbox() is None,'Retina render introduced interpolated colors'
     (review/'package-validation.json').write_text(json.dumps({'dmgMount':True,'applicationCopy':True,'architecture':architecture,'selfContained':True,'assetHashes':True,'quitRestart':True,'renderScales':[1,2]},indent=2))
     print('MACOS VALIDATION PASS',args.arch)
 if __name__=='__main__':main()

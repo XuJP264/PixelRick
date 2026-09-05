@@ -17,6 +17,7 @@ internal sealed partial class PetWindow
         engine.Config.Wander = false; engine.Config.InteractionFrequency = 0;
         engine.State.Changed += s => visited.Add(s); visited.Add(engine.State.State);
         checks["nativeTransparentWindow"] = mac && MacNative.pr_is_opaque(native) == 0;
+        checks["noDockIcon"] = MacNative.pr_is_accessory() != 0;
         checks["menuBarConfigured"] = trays.Count == 1 && trays[0].IsVisible;
         checks["nativeScreensAvailable"] = mac && MacNative.Areas().Length > 0;
         checks["emptyPixelClickThrough"] = !sprite.OpaqueAt(0, 0);
@@ -65,12 +66,20 @@ internal sealed partial class PetWindow
                 case 8: checks["sleep"] = engine.State.State == PetState.Sleep; engine.Wake(); break;
                 case 9:
                     checks["wake"] = visited.Contains(PetState.WakeUp);
+                    MacNative.pr_test_mouse(native, 0, 128, 140, 1); MacNative.pr_test_mouse(native, 2, 128, 140, 1);
                     MacNative.pr_test_mouse(native, 0, 128, 140, 2); MacNative.pr_test_mouse(native, 2, 128, 140, 2); break;
                 case 11:
                     checks["nativeDoubleClickPortal"] = visited.Contains(PetState.PortalEnter) && visited.Contains(PetState.PortalExit);
                     checks["validWorkArea"] = engine.Movement.Y <= engine.Area.Bottom && engine.Movement.Y >= engine.Area.Top + 96 * engine.Config.Scale && engine.Movement.X >= engine.Area.Left && engine.Movement.X <= engine.Area.Right;
-                    Hide(); checks["hide"] = !IsVisible; break;
-                case 12: ShowRick(); checks["show"] = IsVisible; OpenSettings(); break;
+                    Hide(); checks["hide"] = !IsVisible;
+                    var secondStart = new System.Diagnostics.ProcessStartInfo(Environment.ProcessPath!) { UseShellExecute = false };
+                    secondStart.ArgumentList.Add("--self-test"); secondStart.ArgumentList.Add("--test-config-dir"); secondStart.ArgumentList.Add(settings.Folder);
+                    using (var second = System.Diagnostics.Process.Start(secondStart)) {
+                        checks["singleInstance"] = second is not null && second.WaitForExit(5000) && second.ExitCode == 0;
+                        if (second is not null && !second.HasExited) second.Kill();
+                    }
+                    break;
+                case 12: checks["secondLaunchShowsHiddenPet"] = IsVisible; ShowRick(); checks["show"] = IsVisible; OpenSettings(); break;
                 case 13:
                     checks["settingsWindow"] = settingsWindow?.IsVisible == true;
                     if (settingsWindow is not null) { using var bitmap = new RenderTargetBitmap(new PixelSize(860, 1300), new Vector(192, 192)); bitmap.Render(settingsWindow); bitmap.Save(Path.Combine(reviewFolder, "settings.png"), PngBitmapEncoderOptions.Default); settingsWindow.Close(); }
