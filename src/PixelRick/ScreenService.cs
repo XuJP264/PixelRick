@@ -1,11 +1,5 @@
 using Forms=System.Windows.Forms;
 namespace PixelRick;
-public readonly record struct WorkArea(double Left,double Top,double Right,double Bottom)
-{
-    public double Width=>Right-Left;
-    public double Height=>Bottom-Top;
-    public bool Contains(double x,double y)=>x>=Left&&x<Right&&y>=Top&&y<Bottom;
-}
 public sealed class ScreenService
 {
     public WorkArea[] Areas(bool multi=true)=> (multi?Forms.Screen.AllScreens:[Forms.Screen.PrimaryScreen!]).Select(s=>new WorkArea(s.WorkingArea.Left,s.WorkingArea.Top,s.WorkingArea.Right,s.WorkingArea.Bottom)).ToArray();

@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+ <PropertyGroup><OutputType>WinExe</OutputType><TargetFramework>net8.0</TargetFramework><AssemblyName>PixelRick.Desktop</AssemblyName><AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault><PublishTrimmed>false</PublishTrimmed><UseAppHost>true</UseAppHost></PropertyGroup>
+ <ItemGroup>
+  <PackageReference Include="Avalonia.Desktop" Version="12.1.2"/>
+  <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.2"/>
+  <ProjectReference Include="../PixelRick.Core/PixelRick.Core.csproj"/>
+ </ItemGroup>
+ <Import Project="../PixelRick.Assets/PixelRick.Assets.props"/>
+</Project>

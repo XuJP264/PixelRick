@@ -5,13 +5,14 @@ public sealed class SpriteAnimator
 {
     private readonly CharacterDefinition character;
     private readonly Dictionary<string, BitmapSource[]> cache = new();
-    public string Current { get; private set; } = "idle";
-    public double Elapsed { get; private set; }
-    public bool Finished => !Definition.Loop && Elapsed >= Definition.Frames / Definition.Fps;
-    public AnimationDefinition Definition => character.Animations[Current];
-    public SpriteAnimator(CharacterDefinition character)
+    private readonly AnimationClock timing;
+    public string Current => timing.Current;
+    public double Elapsed => timing.Elapsed;
+    public bool Finished => timing.Finished;
+    public AnimationDefinition Definition => timing.Definition;
+    public SpriteAnimator(CharacterDefinition character, AnimationClock? clock = null)
     {
-        this.character = character;
+        this.character = character; timing = clock ?? new(character);
         foreach (var (key, a) in character.Animations)
         {
             var bmp=new BitmapImage();bmp.BeginInit();bmp.UriSource=new Uri(System.IO.Path.Combine(character.Root,a.File));bmp.CacheOption=BitmapCacheOption.OnLoad;bmp.EndInit();bmp.Freeze();
@@ -19,8 +20,8 @@ public sealed class SpriteAnimator
             cache[key]=Enumerable.Range(0,a.Frames).Select(i=> { var frame=new CroppedBitmap(bmp,new Int32Rect(i*a.FrameWidth,0,a.FrameWidth,a.FrameHeight));frame.Freeze();return (BitmapSource)frame; }).ToArray();
         }
     }
-    public void Play(string name) { if(!character.Animations.ContainsKey(name))throw new ArgumentException($"Unknown animation: {name}",nameof(name));Current=name;Elapsed=0; }
-    public void Update(double dt) => Elapsed += dt;
-    public BitmapSource Frame => cache[Current][Definition.Loop ? (int)(Elapsed*Definition.Fps)%Definition.Frames : Math.Min(Definition.Frames-1,(int)(Elapsed*Definition.Fps))];
+    public void Play(string name) => timing.Play(name);
+    public void Update(double dt) => timing.Update(dt);
+    public BitmapSource Frame => cache[Current][timing.FrameIndex];
     public BitmapSource GetFrame(string name,int index) => cache[name][index%cache[name].Length];
 }
