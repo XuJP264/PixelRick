@@ -31,4 +31,10 @@ The tag-triggered [Windows release workflow](https://github.com/XuJP264/PixelRic
 repeats the art checks, clean build, tests, self-contained packaging, application
 launch, and installer lifecycle before uploading a GitHub Release.
 
+The [v0.1.0 cloud release run](https://github.com/XuJP264/PixelRick/actions/runs/33986522402)
+passed all of these checks. The public installer and portable ZIP were downloaded
+again and verified against the published SHA256 checksums; all 25 packaged sprite
+sheets match the reviewed source assets. The portable archive also passes ZIP CRC
+validation and includes the Windows desktop runtime.
+
 See `KNOWN_ISSUES.md` for hardware coverage and unsigned-executable limitations.
