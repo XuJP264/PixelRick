@@ -65,8 +65,9 @@ python3 tools/macos/validate.py --arch arm64
 ```
 
 Use `--arch x64` on an Intel runner. Native validation is required before advertising
-an architecture. `dist/macos-ARCH/review` contains the JSON results, native-window
-snapshot, 1x/2x captures, Settings capture, and animated behavior demo. The test
+an architecture. `dist/macos-ARCH/review` contains the JSON results, 1x/2x live-renderer
+captures, Settings capture, and animated behavior demo. On disposable GitHub runners
+only, it also captures the real Mac desktop. The test
 mounts the DMG, copies the bundle as a user would, launches it, checks normal input
 and configuration, quits, and repeats the launch. Test settings use an isolated
 temporary folder and never modify a real user's login-item registration.

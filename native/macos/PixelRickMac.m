@@ -59,13 +59,6 @@ int pr_login_set(int enabled) {
     }
     return 0;
 }
-// Local-window snapshots don't capture unrelated applications or require screen recording permission.
-int pr_snapshot(void *handle, const char *path) {
-    NSView *view = windowFor(handle).contentView;
-    NSBitmapImageRep *rep = [view bitmapImageRepForCachingDisplayInRect:view.bounds];
-    [view cacheDisplayInRect:view.bounds toBitmapImageRep:rep];
-    return [[rep representationUsingType:NSBitmapImageFileTypePNG properties:@{}] writeToFile:[NSString stringWithUTF8String:path] atomically:YES];
-}
 // Test harness uses real AppKit events through Avalonia's normal input pipeline.
 void pr_test_mouse(void *handle, int kind, double x, double y, int clicks) {
     NSWindow *w = windowFor(handle);

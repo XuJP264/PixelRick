@@ -20,7 +20,6 @@ internal static class MacNative
     [DllImport(Lib)] internal static extern int pr_login_status();
     [DllImport(Lib)] internal static extern int pr_login_set(int enabled);
     [DllImport(Lib)] internal static extern void pr_sound();
-    [DllImport(Lib)] internal static extern int pr_snapshot(IntPtr handle, [MarshalAs(UnmanagedType.LPUTF8Str)] string path);
     [DllImport(Lib)] internal static extern void pr_test_mouse(IntPtr handle, int kind, double x, double y, int clicks);
     internal static WorkArea[] Areas() { var result = new Screen[32]; int count = pr_screens(result, result.Length); return result.Take(count).Select(s => new WorkArea(s.Left, s.Top, s.Right, s.Bottom)).ToArray(); }
     internal static (double X, double Y) Cursor() { pr_cursor(out double x, out double y); return (x, y); }

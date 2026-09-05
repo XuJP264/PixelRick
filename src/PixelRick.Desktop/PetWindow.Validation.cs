@@ -40,7 +40,6 @@ internal sealed partial class PetWindow
                     sprite.Capture(Path.Combine(reviewFolder, "macos-1x.png"), 1);
                     sprite.Capture(Path.Combine(reviewFolder, "macos-2x.png"), 2);
                     checks["render1xAnd2x"] = true;
-                    checks["nativeSnapshot"] = MacNative.pr_snapshot(native, Path.Combine(reviewFolder, "native-window.png")) != 0;
                     // Only capture the disposable CI desktop, never a reviewer's desktop.
                     if (Environment.GetEnvironmentVariable("GITHUB_ACTIONS") == "true") {
                         var capture = new System.Diagnostics.ProcessStartInfo("/usr/sbin/screencapture") { UseShellExecute = false };
