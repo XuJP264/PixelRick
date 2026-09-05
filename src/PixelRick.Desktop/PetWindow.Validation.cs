@@ -40,6 +40,13 @@ internal sealed partial class PetWindow
                     sprite.Capture(Path.Combine(reviewFolder, "macos-2x.png"), 2);
                     checks["render1xAnd2x"] = true;
                     checks["nativeSnapshot"] = MacNative.pr_snapshot(native, Path.Combine(reviewFolder, "native-window.png")) != 0;
+                    // Only capture the disposable CI desktop, never a reviewer's desktop.
+                    if (Environment.GetEnvironmentVariable("GITHUB_ACTIONS") == "true") {
+                        var capture = new System.Diagnostics.ProcessStartInfo("/usr/sbin/screencapture") { UseShellExecute = false };
+                        capture.ArgumentList.Add("-x"); capture.ArgumentList.Add(Path.Combine(reviewFolder, "hosted-macos-desktop.png"));
+                        using var process = System.Diagnostics.Process.Start(capture);
+                        if (process is not null && !process.WaitForExit(5000)) process.Kill();
+                    }
                     engine.State.Enter(PetState.Walk); engine.Movement.Destination = engine.Movement.X - 90; break;
                 case 2:
                     engine.State.Enter(PetState.Idle);

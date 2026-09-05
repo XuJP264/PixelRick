@@ -37,6 +37,9 @@ def main():
         target=(frameworks if macho else payload)/path.name
         shutil.move(path,target)
         path.symlink_to(os.path.relpath(target,path.parent),target_is_directory=target.is_dir())
+        # apphost resolves the managed entry DLL's symlink and uses payload as
+        # AppContext.BaseDirectory, including for hostpolicy and P/Invoke probing.
+        if macho:(payload/path.name).symlink_to(os.path.relpath(target,payload))
     credentials=['MACOS_CERTIFICATE_BASE64','MACOS_CERTIFICATE_PASSWORD','MACOS_SIGNING_IDENTITY','APPLE_ID','APPLE_TEAM_ID','APPLE_APP_PASSWORD']
     present=[bool(os.environ.get(name)) for name in credentials]
     if any(present) and not all(present):raise RuntimeError('Partial signing configuration: provide all documented secrets or none')

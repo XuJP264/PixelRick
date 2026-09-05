@@ -10,4 +10,9 @@ __pycache__/
 Assets/Character/Rick/source/
 *.log
 .env*
+*.p12
+*.pfx
+*.keychain-db
+*.mobileprovision
+*.provisionprofile
 **/TestResults/

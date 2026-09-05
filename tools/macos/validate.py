@@ -22,6 +22,7 @@ def main():
     review=dest/'review';review.mkdir(exist_ok=True)
     result=subprocess.run([str(exe),'--self-test','--review-dir',str(review)],timeout=100,stdout=(review/'stdout.log').open('w'),stderr=(review/'stderr.log').open('w'))
     if (review/'failure.txt').exists():print((review/'failure.txt').read_text())
+    if result.returncode:print((review/'stderr.log').read_text())
     if (review/'macos-report.json').exists():print((review/'macos-report.json').read_text())
     assert result.returncode==0,f'App validation exit {result.returncode}'
     report=json.loads((review/'macos-report.json').read_text());assert report['passed']
