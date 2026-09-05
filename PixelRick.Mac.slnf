@@ -1,0 +1,10 @@
+{
+  "solution": {
+    "path": "PixelRick.sln",
+    "projects": [
+      "src/PixelRick.Core/PixelRick.Core.csproj",
+      "src/PixelRick.Desktop/PixelRick.Desktop.csproj",
+      "tests/PixelRick.Core.Tests/PixelRick.Core.Tests.csproj"
+    ]
+  }
+}

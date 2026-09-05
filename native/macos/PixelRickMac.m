@@ -12,6 +12,7 @@ static NSWindow *windowFor(void *handle) {
 }
 static NSWindow *pet;
 static id showObserver;
+static BOOL showRequested;
 int pr_screens(PRScreen *output, int capacity) {
     NSArray<NSScreen *> *screens = NSScreen.screens; double top = primaryTop();
     int count = MIN((int)screens.count, capacity);
@@ -27,7 +28,7 @@ void pr_configure(void *handle) {
     pet = windowFor(handle); pet.opaque = NO; pet.backgroundColor = NSColor.clearColor;
     pet.hasShadow = NO; pet.hidesOnDeactivate = NO; pet.animationBehavior = NSWindowAnimationBehaviorNone;
     pet.collectionBehavior = NSWindowCollectionBehaviorCanJoinAllSpaces | NSWindowCollectionBehaviorFullScreenAuxiliary;
-    if (!showObserver) showObserver = [NSDistributedNotificationCenter.defaultCenter addObserverForName:@"org.pixelrick.show" object:nil queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification *n) { [pet orderFrontRegardless]; }];
+    if (!showObserver) showObserver = [NSDistributedNotificationCenter.defaultCenter addObserverForName:@"org.pixelrick.show" object:nil queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification *n) { showRequested = YES; }];
 }
 void pr_frame(void *handle, double left, double top, double width, double height, int topmost) {
     NSWindow *w = windowFor(handle); NSRect r = NSMakeRect(left, primaryTop() - top - height, width, height);
@@ -39,7 +40,8 @@ void pr_ignore(void *handle, int ignore) { windowFor(handle).ignoresMouseEvents 
 int pr_ignoring(void *handle) { return windowFor(handle).ignoresMouseEvents; }
 double pr_backing_scale(void *handle) { return windowFor(handle).backingScaleFactor; }
 int pr_is_opaque(void *handle) { return windowFor(handle).opaque; }
-void pr_show_existing(void) { [NSDistributedNotificationCenter.defaultCenter postNotificationName:@"org.pixelrick.show" object:nil deliverImmediately:YES]; }
+void pr_show_existing(void) { [NSDistributedNotificationCenter.defaultCenter postNotificationName:@"org.pixelrick.show" object:nil userInfo:nil deliverImmediately:YES]; }
+int pr_take_show_requested(void) { BOOL requested = showRequested; showRequested = NO; return requested; }
 void pr_show(void *handle) { [windowFor(handle) orderFrontRegardless]; }
 void pr_sound(void) { NSBeep(); }
 // SMAppService stores login configuration in macOS itself. No shell scripts or LaunchAgents.

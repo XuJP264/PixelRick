@@ -58,6 +58,7 @@ internal sealed partial class PetWindow : Window
     private (double X, double Y) CursorPosition() => mac ? MacNative.Cursor() : fallbackCursor;
     private void Tick()
     {
+        if (mac && MacNative.pr_take_show_requested() != 0) ShowRick();
         double now = clock.Elapsed.TotalSeconds, dt = now - last; last = now;
         if (now > screensAt) { RefreshScreens(); screensAt = now + 1; }
         var p = CursorPosition(); engine.Tick(dt, now, p.X, p.Y, IsVisible);
