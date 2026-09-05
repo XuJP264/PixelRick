@@ -18,7 +18,12 @@ public sealed class App : Application
             }
             Directory.CreateDirectory(folder);
             try { instance = new FileStream(Path.Combine(folder, "instance.lock"), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None); }
-            catch (IOException) { if (OperatingSystem.IsMacOS()) MacNative.pr_show_existing(); desktop.Shutdown(); return; }
+            catch (IOException) {
+                if (OperatingSystem.IsMacOS()) MacNative.pr_show_existing();
+                // The lifetime has not entered its dispatcher loop yet.
+                Avalonia.Threading.Dispatcher.UIThread.Post(() => desktop.Shutdown());
+                base.OnFrameworkInitializationCompleted(); return;
+            }
             var pet = new PetWindow(desktop, folder); desktop.MainWindow = pet;
             desktop.Exit += (_, _) => instance.Dispose();
         }
