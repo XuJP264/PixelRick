@@ -7,6 +7,7 @@ internal sealed partial class PetWindow
     private string? reviewFolder;
     private int validationStage = -1, captureIndex;
     private double nextCapture;
+    private double walkStart;
     private readonly HashSet<PetState> visited = new();
     private readonly Dictionary<string, bool> checks = new();
     private void StartValidation()
@@ -47,8 +48,10 @@ internal sealed partial class PetWindow
                         using var process = System.Diagnostics.Process.Start(capture);
                         if (process is not null && !process.WaitForExit(5000)) process.Kill();
                     }
+                    walkStart = engine.Movement.X;
                     engine.State.Enter(PetState.Walk); engine.Movement.Destination = engine.Movement.X - 90; break;
                 case 2:
+                    checks["walkingMovesPet"] = Math.Abs(engine.Movement.X - walkStart) > 20;
                     engine.State.Enter(PetState.Idle);
                     MacNative.pr_test_mouse(native, 0, 128, 140, 1); MacNative.pr_test_mouse(native, 2, 128, 140, 1); break;
                 case 3:
@@ -58,7 +61,9 @@ internal sealed partial class PetWindow
                     MacNative.pr_test_mouse(native, 1, 100, -60, 1); break;
                 case 5:
                     checks["nativeDrag"] = engine.Dragging;
-                    MacNative.pr_test_mouse(native, 1, 200, -90, 1); MacNative.pr_test_mouse(native, 2, 200, -90, 1); break;
+                    MacNative.pr_test_mouse(native, 1, 180, -70, 1);
+                    MacNative.pr_test_mouse(native, 1, 200, -90, 1); MacNative.pr_test_mouse(native, 2, 200, -90, 1);
+                    checks["nativeThrowVelocity"] = Math.Abs(engine.Physics.Vx) > 0 || Math.Abs(engine.Physics.Vy) > 0; break;
                 case 7:
                     checks["fallAndLanding"] = visited.Contains(PetState.Falling) && visited.Contains(PetState.Landing);
                     engine.Sleep(); break;

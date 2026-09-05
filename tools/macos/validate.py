@@ -38,7 +38,8 @@ def main():
     with Image.open(review/'macos-1x.png') as a, Image.open(review/'macos-2x.png') as b:
         assert b.size==(a.width*2,a.height*2)
         assert a.getchannel('A').getbbox() and b.getchannel('A').getbbox()
-        assert ImageChops.difference(a.resize(b.size,Image.Resampling.NEAREST),b).convert('RGB').getbbox() is None,'Retina render introduced interpolated colors'
+        difference=ImageChops.difference(a.resize(b.size,Image.Resampling.NEAREST),b)
+        assert all(channel.getbbox() is None for channel in difference.split()),'Retina render introduced interpolated colors or alpha'
     (review/'package-validation.json').write_text(json.dumps({'dmgMount':True,'applicationCopy':True,'architecture':architecture,'selfContained':True,'assetHashes':True,'quitRestart':True,'renderScales':[1,2]},indent=2))
     print('MACOS VALIDATION PASS',args.arch)
 if __name__=='__main__':main()

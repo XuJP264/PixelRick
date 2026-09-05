@@ -4,7 +4,12 @@ Signing credentials are read only from environment variables populated by CI sec
 import argparse, base64, hashlib, json, os, pathlib, plistlib, shutil, subprocess, tempfile
 from PIL import Image
 ROOT = pathlib.Path(__file__).resolve().parents[2]
-def run(*args, **kwargs): return subprocess.run(list(map(str,args)),check=True,**kwargs)
+def run(*args, **kwargs):
+    result=subprocess.run(list(map(str,args)),check=False,**kwargs)
+    # Do not include command arguments in exceptions: signing commands contain
+    # passwords even when running outside GitHub's automatic secret masking.
+    if result.returncode:raise RuntimeError(f'{pathlib.Path(str(args[0])).name} failed with exit {result.returncode}')
+    return result
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--arch',choices=['arm64','x64'],required=True);args=parser.parse_args()

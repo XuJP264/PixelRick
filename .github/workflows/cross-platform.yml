@@ -2,6 +2,7 @@ name: Cross-platform validation
 on:
   push:
     branches: ['feature/macos']
+    paths-ignore: ['**/*.md', 'ArtReview/**']
   workflow_dispatch:
   workflow_call:
 permissions:
