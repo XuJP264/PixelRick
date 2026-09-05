@@ -1,0 +1,252 @@
+{
+  "idle": {
+    "file": "Character/Rick/Sprites/idle.png",
+    "frameWidth": 128,
+    "frameHeight": 128,
+    "frames": 6,
+    "fps": 3,
+    "loop": true,
+    "anchorX": 64,
+    "anchorY": 120
+  },
+  "walk": {
+    "file": "Character/Rick/Sprites/walk.png",
+    "frameWidth": 128,
+    "frameHeight": 128,
+    "frames": 8,
+    "fps": 9,
+    "loop": true,
+    "anchorX": 64,
+    "anchorY": 120
+  },
+  "grabbed": {
+    "file": "Character/Rick/Sprites/grabbed.png",
+    "frameWidth": 128,
+    "frameHeight": 128,
+    "frames": 4,
+    "fps": 7,
+    "loop": true,
+    "anchorX": 64,
+    "anchorY": 120
+  },
+  "falling": {
+    "file": "Character/Rick/Sprites/falling.png",
+    "frameWidth": 128,
+    "frameHeight": 128,
+    "frames": 4,
+    "fps": 8,
+    "loop": true,
+    "anchorX": 64,
+    "anchorY": 120
+  },
+  "landing": {
+    "file": "Character/Rick/Sprites/landing.png",
+    "frameWidth": 128,
+    "frameHeight": 128,
+    "frames": 6,
+    "fps": 12,
+    "loop": false,
+    "anchorX": 64,
+    "anchorY": 120
+  },
+  "blink": {
+    "file": "Character/Rick/Sprites/blink.png",
+    "frameWidth": 128,
+    "frameHeight": 128,
+    "frames": 4,
+    "fps": 9,
+    "loop": false,
+    "anchorX": 64,
+    "anchorY": 120
+  },
+  "look_around": {
+    "file": "Character/Rick/Sprites/look_around.png",
+    "frameWidth": 128,
+    "frameHeight": 128,
+    "frames": 6,
+    "fps": 4,
+    "loop": false,
+    "anchorX": 64,
+    "anchorY": 120
+  },
+  "sit": {
+    "file": "Character/Rick/Sprites/sit.png",
+    "frameWidth": 128,
+    "frameHeight": 128,
+    "frames": 6,
+    "fps": 7,
+    "loop": false,
+    "anchorX": 64,
+    "anchorY": 120
+  },
+  "sitting_idle": {
+    "file": "Character/Rick/Sprites/sitting_idle.png",
+    "frameWidth": 128,
+    "frameHeight": 128,
+    "frames": 4,
+    "fps": 3,
+    "loop": true,
+    "anchorX": 64,
+    "anchorY": 120
+  },
+  "sleep": {
+    "file": "Character/Rick/Sprites/sleep.png",
+    "frameWidth": 128,
+    "frameHeight": 128,
+    "frames": 6,
+    "fps": 2,
+    "loop": true,
+    "anchorX": 64,
+    "anchorY": 120
+  },
+  "wake_up": {
+    "file": "Character/Rick/Sprites/wake_up.png",
+    "frameWidth": 128,
+    "frameHeight": 128,
+    "frames": 6,
+    "fps": 6,
+    "loop": false,
+    "anchorX": 64,
+    "anchorY": 120
+  },
+  "angry": {
+    "file": "Character/Rick/Sprites/angry.png",
+    "frameWidth": 128,
+    "frameHeight": 128,
+    "frames": 8,
+    "fps": 10,
+    "loop": false,
+    "anchorX": 64,
+    "anchorY": 120
+  },
+  "dizzy": {
+    "file": "Character/Rick/Sprites/dizzy.png",
+    "frameWidth": 128,
+    "frameHeight": 128,
+    "frames": 6,
+    "fps": 6,
+    "loop": false,
+    "anchorX": 64,
+    "anchorY": 120
+  },
+  "poked": {
+    "file": "Character/Rick/Sprites/poked.png",
+    "frameWidth": 128,
+    "frameHeight": 128,
+    "frames": 6,
+    "fps": 10,
+    "loop": false,
+    "anchorX": 64,
+    "anchorY": 120
+  },
+  "smirk": {
+    "file": "Character/Rick/Sprites/smirk.png",
+    "frameWidth": 128,
+    "frameHeight": 128,
+    "frames": 6,
+    "fps": 5,
+    "loop": false,
+    "anchorX": 64,
+    "anchorY": 120
+  },
+  "portal_enter": {
+    "file": "Character/Rick/Sprites/portal_enter.png",
+    "frameWidth": 128,
+    "frameHeight": 128,
+    "frames": 8,
+    "fps": 7,
+    "loop": false,
+    "anchorX": 64,
+    "anchorY": 120
+  },
+  "portal_exit": {
+    "file": "Character/Rick/Sprites/portal_exit.png",
+    "frameWidth": 128,
+    "frameHeight": 128,
+    "frames": 8,
+    "fps": 7,
+    "loop": false,
+    "anchorX": 64,
+    "anchorY": 120
+  },
+  "portal": {
+    "file": "Effects/portal.png",
+    "frameWidth": 128,
+    "frameHeight": 128,
+    "frames": 8,
+    "fps": 7,
+    "loop": true,
+    "anchorX": 64,
+    "anchorY": 120
+  },
+  "zzz": {
+    "file": "Effects/zzz.png",
+    "frameWidth": 128,
+    "frameHeight": 128,
+    "frames": 4,
+    "fps": 4,
+    "loop": true,
+    "anchorX": 64,
+    "anchorY": 120
+  },
+  "anger": {
+    "file": "Effects/anger.png",
+    "frameWidth": 128,
+    "frameHeight": 128,
+    "frames": 4,
+    "fps": 4,
+    "loop": true,
+    "anchorX": 64,
+    "anchorY": 120
+  },
+  "question": {
+    "file": "Effects/question.png",
+    "frameWidth": 128,
+    "frameHeight": 128,
+    "frames": 4,
+    "fps": 4,
+    "loop": true,
+    "anchorX": 64,
+    "anchorY": 120
+  },
+  "exclamation": {
+    "file": "Effects/exclamation.png",
+    "frameWidth": 128,
+    "frameHeight": 128,
+    "frames": 4,
+    "fps": 4,
+    "loop": true,
+    "anchorX": 64,
+    "anchorY": 120
+  },
+  "dust": {
+    "file": "Effects/dust.png",
+    "frameWidth": 128,
+    "frameHeight": 128,
+    "frames": 4,
+    "fps": 4,
+    "loop": true,
+    "anchorX": 64,
+    "anchorY": 120
+  },
+  "impact": {
+    "file": "Effects/impact.png",
+    "frameWidth": 128,
+    "frameHeight": 128,
+    "frames": 4,
+    "fps": 4,
+    "loop": true,
+    "anchorX": 64,
+    "anchorY": 120
+  },
+  "sparkle": {
+    "file": "Effects/sparkle.png",
+    "frameWidth": 128,
+    "frameHeight": 128,
+    "frames": 4,
+    "fps": 4,
+    "loop": true,
+    "anchorX": 64,
+    "anchorY": 120
+  }
+}

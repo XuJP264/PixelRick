@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>../../Assets/app.ico</ApplicationIcon>
+    <AssemblyName>PixelRick</AssemblyName>
+    <Product>PixelRick</Product>
+    <Description>A tiny pixel scientist for your desktop</Description>
+    <PublishTrimmed>false</PublishTrimmed>
+    <NoWarn>$(NoWarn);WFAC010</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Using Remove="System.Drawing"/>
+    <Using Remove="System.Windows.Forms"/>
+    <Content Include="../../Assets/**/*" Exclude="../../Assets/**/reference/**/*;../../Assets/**/source/**/*">
+      <Link>Assets/%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+</Project>

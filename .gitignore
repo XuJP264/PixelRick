@@ -1,0 +1,13 @@
+**/bin/
+**/obj/
+.tools/
+dist/
+.vs/
+*.user
+*.suo
+__pycache__/
+.venv/
+Assets/Character/Rick/source/
+*.log
+.env*
+**/TestResults/
