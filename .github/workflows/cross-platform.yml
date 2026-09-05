@@ -28,6 +28,8 @@ jobs:
       - run: ./tools/release.ps1 -SkipArtBuild
         shell: pwsh
       - run: python tools/ui_test.py dist/publish/PixelRick.exe
+      - run: ./tools/settings_test.ps1 -Exe "$pwd/dist/publish/PixelRick.exe"
+        shell: pwsh
       - run: python tools/smoke_test.py dist/publish/PixelRick.exe
       - run: python tools/installer_test.py
       - uses: actions/upload-artifact@v4
@@ -39,6 +41,8 @@ jobs:
             dist/SHA256SUMS.txt
             dist/installer_validation.json
             tests/**/TestResults/*.trx
+            ArtReview/app_screenshot.png
+            ArtReview/settings_screenshot.png
   macos:
     strategy:
       fail-fast: false
