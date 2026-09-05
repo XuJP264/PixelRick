@@ -18,6 +18,12 @@ render correctly. [Capture provenance](ArtReview/macOS/review-source.json).
 The stable-publication guard was also tested and rejected unsigned Mac reports.
 The tag workflow repeats all platform checks before publishing fresh artifacts.
 
+The [v0.2.0-preview.1 release run](https://github.com/XuJP264/PixelRick/actions/runs/33991468750)
+also passed. All five published downloads were fetched again and matched
+`SHA256SUMS.txt`; the portable runtime/assets and the release's four Mac launch
+reports were verified. [Download verification](ArtReview/macOS/release-verification.json).
+GitHub still identifies v0.1.0 as the latest stable release.
+
 ## Windows regression
 
 - Clean Release build with .NET 10 SDK targeting .NET 8; zero warnings/errors.

@@ -1,0 +1,19 @@
+{
+  "tag": "v0.2.0-preview.1",
+  "releaseRun": "https://github.com/XuJP264/PixelRick/actions/runs/33991468750",
+  "publishedDownloadsVerified": true,
+  "sha256": {
+    "PixelRick-Setup.exe": "a7806008920c0372f88fab925f12d79cb2d50bda90406c4d329a8a04e1398586",
+    "PixelRick-Portable.zip": "ab68b865b864975f996d3087f85aa9826981bd86c26a821b0759cf3c9896b9a3",
+    "PixelRick-macOS-arm64.dmg": "4bccec606cf99fc5624ee2add577b858d1eedd934f3b611a8d49fbcf75a07328",
+    "PixelRick-macOS-x64.dmg": "c02a4aeb63e11993f38b1ccfcbccf1c003cf0206b4d54066b1e741da8f1faa26",
+    "PixelRick-Validation.zip": "4bb6261d19d4f7079dde099d5bad85f50692408615cb8a28a3d802f1f84e8ec3"
+  },
+  "windowsTests": 24,
+  "macChecksPerLaunch": 23,
+  "macLaunchesVerified": 4,
+  "portableRuntimeAndAssets": true,
+  "latestStableUnchanged": "v0.1.0",
+  "macDeveloperIdSigned": false,
+  "macNotarized": false
+}
