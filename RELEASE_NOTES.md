@@ -1,6 +1,8 @@
 PixelRick now has a native macOS desktop frontend using open-source Avalonia,
 with the same sprites and shared behavior engine as the preserved WPF Windows app.
 
+![Mac behavior preview](https://raw.githubusercontent.com/XuJP264/PixelRick/v0.2.0-preview.1/ArtReview/macOS/arm64/macos-behavior-demo.gif)
+
 **This is the v0.2.0 development preview.** The accepted **v0.1.0 Windows release
 remains the latest stable release** and has not been replaced.
 
@@ -26,6 +28,10 @@ work areas, and a macOS Launch at Login implementation.
 **PixelRick-Validation.zip** contains Mac screenshots, live-rendered animation
 demos, architecture/signature/package reports, and Windows regression evidence.
 **SHA256SUMS.txt** covers all release downloads.
+
+Pre-release validation passed: Windows 24 .NET tests, 5 art tests, native interactions,
+Settings UI and installer/portable checks; each Mac architecture passed 15 core tests,
+23 live application checks on first launch and restart, and installed-DMG validation.
 
 Known coverage limits: physical Retina/mixed-DPI monitors, cross-application
 click-through, Spaces/Stage Manager, and login after reboot need broader hardware

@@ -4,6 +4,20 @@ The accepted [v0.1.0 Windows baseline](docs/WINDOWS_BASELINE_VALIDATION.md) rema
 published and unchanged. The Mac port retains WPF on Windows, extracts the common
 behavior engine, and reuses the exact original sprite sheets and metadata.
 
+The [final pre-release validation run](https://github.com/XuJP264/PixelRick/actions/runs/33991063635)
+passed on 2026-09-05 (source `52223f3`). Review captures were visually inspected on
+both architectures; sprite outlines, transparency, effects and Settings controls
+render correctly. [Capture provenance](ArtReview/macOS/review-source.json).
+
+| Platform | Result |
+| --- | --- |
+| Windows x64 | 24 .NET tests, 5 art tests, native interactions, Settings UI and installer/portable lifecycle passed |
+| macOS Apple Silicon | 15 core tests; 23 live app checks on both first launch and restart; DMG validation passed |
+| macOS Intel | 15 core tests; 23 live app checks on both first launch and restart; DMG validation passed |
+
+The stable-publication guard was also tested and rejected unsigned Mac reports.
+The tag workflow repeats all platform checks before publishing fresh artifacts.
+
 ## Windows regression
 
 - Clean Release build with .NET 10 SDK targeting .NET 8; zero warnings/errors.

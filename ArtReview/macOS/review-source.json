@@ -1,0 +1,5 @@
+{
+  "run": "https://github.com/XuJP264/PixelRick/actions/runs/33991063635",
+  "commit": "52223f3",
+  "description": "Native pre-release review captures; final release packages are rebuilt and revalidated by the tag workflow."
+}

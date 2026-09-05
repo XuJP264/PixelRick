@@ -1,0 +1,12 @@
+{
+  "dmgMount": true,
+  "applicationCopy": true,
+  "architecture": "x86_64",
+  "selfContained": true,
+  "assetHashes": true,
+  "quitRestart": true,
+  "renderScales": [
+    1,
+    2
+  ]
+}

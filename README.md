@@ -81,6 +81,12 @@ Mac screenshots, a live-rendered behavior GIF, and machine-readable test reports
 are included in **PixelRick-Validation.zip** on the preview release.
 See [validation results](VALIDATION.md) and [known limits](KNOWN_ISSUES.md).
 
+![Live-rendered macOS behavior preview](ArtReview/macOS/arm64/macos-behavior-demo.gif)
+
+[Apple Silicon desktop screenshot](ArtReview/macOS/arm64/hosted-macos-desktop.png) ·
+[Intel desktop screenshot](ArtReview/macOS/x64/hosted-macos-desktop.png) ·
+[Mac Settings](ArtReview/macOS/arm64/settings.png)
+
 ## Building from Source
 
 Build with the **.NET 10 SDK**; applications still target and bundle **.NET 8**.
