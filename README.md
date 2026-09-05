@@ -12,8 +12,7 @@ and makes dramatic exits through a green portal. No chat, accounts, or network c
 Windows 10/11 · 64-bit · No .NET installation required.
 Prefer no installer? Get **PixelRick-Portable.zip** from [Releases](https://github.com/XuJP264/PixelRick/releases).
 
-The local acceptance build is in `dist/`. The download links become available
-after the first GitHub publication; see [validation status](VALIDATION.md).
+See [validation status](VALIDATION.md) for test coverage and release checks.
 
 ## Features
 

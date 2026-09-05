@@ -27,9 +27,8 @@ not a screen recording. `app_screenshot.png` is rendered by the live WPF window;
 `settings_screenshot.png` captures the application's Settings content only.
 No private desktop screenshot is included.
 
-The source is prepared for a v0.1.0 release. GitHub publishing requires the local
-GitHub CLI authentication requested during handoff; connected app tools do not
-expose repository creation or release uploads. No remote publication is claimed
-until authentication and the release workflow complete.
+The tag-triggered [Windows release workflow](https://github.com/XuJP264/PixelRick/actions/workflows/release.yml)
+repeats the art checks, clean build, tests, self-contained packaging, application
+launch, and installer lifecycle before uploading a GitHub Release.
 
 See `KNOWN_ISSUES.md` for hardware coverage and unsigned-executable limitations.

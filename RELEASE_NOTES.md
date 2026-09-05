@@ -1,5 +1,7 @@
 Meet PixelRick: a small animated desktop scientist for Windows 10/11 x64.
 
+![PixelRick behavior preview](https://raw.githubusercontent.com/XuJP264/PixelRick/v0.1.0/ArtReview/full_behavior_demo.gif)
+
 **Download PixelRick-Setup.exe** for the normal install. No .NET, Python, or
 developer tools are needed. PixelRick-Portable.zip is the extract-and-run alternative.
 
