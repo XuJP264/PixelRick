@@ -1,0 +1,88 @@
+name: Cross-platform validation
+on:
+  push:
+    branches: ['feature/macos']
+    paths-ignore: ['**/*.md', 'ArtReview/**']
+  workflow_dispatch:
+  workflow_call:
+permissions:
+  contents: read
+concurrency:
+  group: mac-port-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            8.0.x
+            10.0.x
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+      - run: python -m pip install -r tools/art_pipeline/requirements.txt
+      - run: ./tools/install-inno.ps1
+        shell: pwsh
+      - run: ./tools/release.ps1 -SkipArtBuild
+        shell: pwsh
+      - run: python tools/ui_test.py dist/publish/PixelRick.exe
+      - run: ./tools/settings_test.ps1 -Exe "$pwd/dist/publish/PixelRick.exe"
+        shell: pwsh
+      - run: python tools/smoke_test.py dist/publish/PixelRick.exe
+      - run: python tools/installer_test.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Windows-review
+          path: |
+            dist/PixelRick-Setup.exe
+            dist/PixelRick-Portable.zip
+            dist/SHA256SUMS.txt
+            dist/installer_validation.json
+            tests/**/TestResults/*.trx
+            ArtReview/app_screenshot.png
+            ArtReview/settings_screenshot.png
+  macos:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: arm64
+            runner: macos-15
+          - arch: x64
+            runner: macos-15-intel
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            8.0.x
+            10.0.x
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+      - run: python -m pip install -r tools/art_pipeline/requirements.txt
+      - run: dotnet test tests/PixelRick.Core.Tests/PixelRick.Core.Tests.csproj -c Release
+      - name: Build bundle and DMG
+        env:
+          MACOS_CERTIFICATE_BASE64: ${{ secrets.MACOS_CERTIFICATE_BASE64 }}
+          MACOS_CERTIFICATE_PASSWORD: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
+          MACOS_SIGNING_IDENTITY: ${{ secrets.MACOS_SIGNING_IDENTITY }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          APPLE_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
+        run: python tools/macos/package.py --arch ${{ matrix.arch }}
+      - name: Validate real macOS app
+        run: python tools/macos/validate.py --arch ${{ matrix.arch }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: macOS-${{ matrix.arch }}-review
+          path: |
+            dist/macos-${{ matrix.arch }}/PixelRick-macOS-${{ matrix.arch }}.dmg
+            dist/macos-${{ matrix.arch }}/package-report.json
+            dist/macos-${{ matrix.arch }}/review/
+            dist/macos-${{ matrix.arch }}/restart-review/*.json

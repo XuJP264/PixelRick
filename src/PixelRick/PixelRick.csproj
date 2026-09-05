@@ -13,11 +13,9 @@
     <NoWarn>$(NoWarn);WFAC010</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="../PixelRick.Core/PixelRick.Core.csproj"/>
     <Using Remove="System.Drawing"/>
     <Using Remove="System.Windows.Forms"/>
-    <Content Include="../../Assets/**/*" Exclude="../../Assets/**/reference/**/*;../../Assets/**/source/**/*">
-      <Link>Assets/%(RecursiveDir)%(Filename)%(Extension)</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
+  <Import Project="../PixelRick.Assets/PixelRick.Assets.props"/>
 </Project>

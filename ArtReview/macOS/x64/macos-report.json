@@ -1,0 +1,60 @@
+{
+  "architecture": "X64",
+  "os": "Darwin 24.6.0 Darwin Kernel Version 24.6.0: Tue Jul 21 20:50:07 PDT 2026; root:xnu-11417.140.69.711.44~1/RELEASE_X86_64",
+  "backingScale": 1,
+  "screens": [
+    {
+      "Left": 0,
+      "Top": 25,
+      "Right": 1920,
+      "Bottom": 995,
+      "Width": 1920,
+      "Height": 970
+    }
+  ],
+  "checks": {
+    "nativeTransparentWindow": true,
+    "noDockIcon": true,
+    "menuBarConfigured": true,
+    "nativeScreensAvailable": true,
+    "emptyPixelClickThrough": true,
+    "appKitIgnoresMouseEvents": true,
+    "appKitAcceptsMouseEvents": true,
+    "settingsRoundTrip": true,
+    "render1xAnd2x": true,
+    "walkingMovesPet": true,
+    "nativeClickReaction": true,
+    "nativeDrag": true,
+    "nativeThrowVelocity": true,
+    "fallAndLanding": true,
+    "sleep": true,
+    "wake": true,
+    "nativeDoubleClickPortal": true,
+    "validWorkArea": true,
+    "hide": true,
+    "singleInstance": true,
+    "secondLaunchShowsHiddenPet": true,
+    "show": true,
+    "settingsWindow": true
+  },
+  "visited": [
+    "Angry",
+    "Dizzy",
+    "Falling",
+    "Grabbed",
+    "Idle",
+    "Landing",
+    "PortalEnter",
+    "PortalExit",
+    "Sit",
+    "Sleep",
+    "WakeUp",
+    "Walk"
+  ],
+  "passed": true,
+  "limitations": [
+    "Hosted runner display only; physical mixed-DPI displays, Spaces and login after reboot require hardware review.",
+    "1x/2x images use the live renderer at explicit backing resolutions; only backingScale above describes the actual display.",
+    "Click-through mask sampled at 60 Hz; rapid pointer movement immediately followed by click has a one-tick race."
+  ]
+}
