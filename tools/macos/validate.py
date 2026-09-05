@@ -13,6 +13,7 @@ def main():
         assert (mount/'Applications').is_symlink()
     finally:subprocess.run(['hdiutil','detach',str(mount)],check=True)
     contents=app/'Contents';plist=plistlib.loads((contents/'Info.plist').read_bytes());assert plist['NSHighResolutionCapable'] and plist['LSUIElement']
+    subprocess.run(['codesign','--verify','--deep','--strict',str(app)],check=True)
     exe=contents/'MacOS/PixelRick.Desktop'
     architecture=subprocess.check_output(['lipo','-archs',str(exe)],text=True).strip();assert architecture==('arm64' if args.arch=='arm64' else 'x86_64')
     assert (contents/'MacOS/libcoreclr.dylib').exists();assert (contents/'MacOS/libPixelRickMac.dylib').exists()

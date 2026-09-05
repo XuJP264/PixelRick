@@ -27,6 +27,16 @@ def main():
             for factor in [1,2]:image.resize((size*factor,size*factor),Image.Resampling.NEAREST).save(icons/f'icon_{size}x{size}{"@2x" if factor==2 else ""}.png')
     run('iconutil','-c','icns',icons,'-o',contents/'Resources/PixelRick.icns')
     (contents/'MacOS/PixelRick.Desktop').chmod(0o755)
+    # Apple treats MacOS as a code directory. Put managed DLLs/data in Resources
+    # and native libraries in Frameworks; relative links preserve .NET probing.
+    payload=contents/'Resources/payload';payload.mkdir()
+    frameworks=contents/'Frameworks';frameworks.mkdir()
+    for path in list((contents/'MacOS').iterdir()):
+        if path.name=='PixelRick.Desktop':continue
+        macho=path.is_file() and 'Mach-O' in subprocess.check_output(['file','-b',str(path)],text=True)
+        target=(frameworks if macho else payload)/path.name
+        shutil.move(path,target)
+        path.symlink_to(os.path.relpath(target,path.parent),target_is_directory=target.is_dir())
     credentials=['MACOS_CERTIFICATE_BASE64','MACOS_CERTIFICATE_PASSWORD','MACOS_SIGNING_IDENTITY','APPLE_ID','APPLE_TEAM_ID','APPLE_APP_PASSWORD']
     present=[bool(os.environ.get(name)) for name in credentials]
     if any(present) and not all(present):raise RuntimeError('Partial signing configuration: provide all documented secrets or none')
@@ -44,8 +54,8 @@ def main():
             cert.unlink()
         signargs=['--force','--sign',identity]
         if signed:signargs+=['--keychain',str(keychain),'--options','runtime','--timestamp','--entitlements',str(ROOT/'packaging/macos/entitlements.plist')]
-        for path in sorted((contents/'MacOS').rglob('*')):
-            if path.is_file() and 'Mach-O' in subprocess.check_output(['file','-b',str(path)],text=True):run('codesign',*signargs,path)
+        for path in sorted(frameworks.rglob('*')):
+            if path.is_file():run('codesign',*signargs,path)
         run('codesign',*signargs,app);run('codesign','--verify','--deep','--strict','--verbose=2',app)
         os.symlink('/Applications',stage/'Applications')
         if not signed:

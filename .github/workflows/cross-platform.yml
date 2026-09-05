@@ -38,6 +38,7 @@ jobs:
             dist/PixelRick-Portable.zip
             dist/SHA256SUMS.txt
             dist/installer_validation.json
+            tests/**/TestResults/*.trx
   macos:
     strategy:
       fail-fast: false
